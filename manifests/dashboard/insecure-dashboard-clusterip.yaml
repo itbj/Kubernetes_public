@@ -174,7 +174,6 @@ spec:
       containers:
         - name: kubernetes-dashboard
           image: kubernetesui/dashboard:v2.0.0
-          imagePullPolicy: Always
           ports:
             - containerPort: 8443
               protocol: TCP
@@ -312,6 +311,7 @@ spec:
         - apk add --no-cache socat && socat TCP-LISTEN:80,fork,reuseaddr OPENSSL:kubernetes-dashboard.kubernetes-dashboard:443,verify=0
         image: alpine
         name: dashboard
+        imagePullPolicy: IfNotPresent
 
 ---
 
