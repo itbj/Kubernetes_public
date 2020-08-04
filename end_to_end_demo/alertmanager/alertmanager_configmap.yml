@@ -32,5 +32,5 @@ data:
         smarthost: smtp.gmail.com:587
         auth_username: kunchalavikram1427@gmail.com
         auth_identity: kunchalavikram1427@gmail.com
-        auth_password: olgunbimnpovdplw
+        auth_password: xxxx
         send_resolved: true
