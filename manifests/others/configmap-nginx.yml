@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-nginx-service
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 31000    
+  selector:
+    app: app-nginx
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: app-nginx
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: configmap-volumes
+      mountPath: /usr/share/nginx/html        
+  volumes:
+  - name: configmap-volumes
+    configMap:
+      name: index-file     

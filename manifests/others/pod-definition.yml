@@ -1,10 +1,15 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: myapp-pod
+  name: nginx-pod
   labels:
     app: myapp
+    env: dev
+    project: iot
+    region: asia
 spec:
   containers:
   - name: nginx-container
     image: nginx
+    ports: 
+    - containerPort: 80

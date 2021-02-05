@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-containers-pod
+spec:
+  containers:
+  - name: busybox-main
+    image: busybox
+    command: ["/bin/sh"]
+    args: ["-c", "echo 'hello from main container' ; sleep 10m"]
+
+  # This containers counts from 10 to 1
+  initContainers:
+  - name: busybox-int
+    image: busybox
+    command: ["/bin/sh"]
+    args: ["-c", 'i=10; while [ $i -ge 0 ]; do echo $i; sleep 0.5; i=$(expr $i - 1); done']
