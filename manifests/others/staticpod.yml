@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: static-pod
+  labels:
+   type: static
+   stage: dev
+spec:
+  containers:
+  - name: nginx-static
+    image: nginx
+    ports:
+    - containerPort: 80

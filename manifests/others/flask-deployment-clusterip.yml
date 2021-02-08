@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-service
+spec:
+  ports:
+  - port: 80
+    targetPort: 5000
+  selector:
+    app: app-flask
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-flask
+  template:
+    metadata:
+      labels:
+        app: app-flask
+    spec:
+      containers:
+      - name: flask
+        image: kunchalavikram/sampleflask:latest
+        ports:
+        - containerPort: 5000

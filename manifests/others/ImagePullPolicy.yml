@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-test
+spec:
+  containers:
+    - name: nginx-test
+      image: dockerrepository-dev.alstom.hub/kubernetes_setup/nginx:latest
+      imagePullPolicy: IfNotPresent

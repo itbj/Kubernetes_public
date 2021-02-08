@@ -1,0 +1,49 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: nginx-deployment 
+  labels: 
+    app: nginx-backend
+spec: 
+  replicas: 2 
+  selector: 
+    matchLabels:
+      app: nginx-backend 
+  template: 
+    metadata:
+      labels: 
+        app: nginx-backend
+    spec:
+      containers:
+      - name: nginx-container 
+        image: nginx 
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-nginx
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: nginx-backend
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend-pod
+  labels:
+    app: nginx-frontend
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx 
+    ports:
+      - containerPort: 80

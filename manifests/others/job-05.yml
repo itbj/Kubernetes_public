@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: counter-job
+spec:
+  completions: 10
+  parallelism: 5
+  template:
+    spec:
+      containers:
+      - name: counter-job
+        image: busybox
+        command: ["/bin/sh"]
+        args: ["-c", 'num=$(( $RANDOM % 10 )); if [ `expr $num % 2` -eq 0 ]; then echo "positive"; exit 0; else echo "negative"; exit 1; fi']
+      restartPolicy: Never
