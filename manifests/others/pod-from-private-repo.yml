@@ -1,0 +1,21 @@
+# kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
+apiVersion: v1
+kind: Pod
+metadata:
+  name: private-reg
+spec:
+  containers:
+  - name: private-reg-container
+    image: <your-private-image>
+  imagePullSecrets:
+  - name: regcred
+
+# kubectl create secret docker-registry private-reg-cred --docker-server=myprivateregistry.com:5000 --docker-username=dock_user --docker-password=dock_password --docker-email=dock_user@myprivateregistry.com
+
+# Name: private-reg-cred
+# Username: dock_user
+# Password: dock_password
+# Server: myprivateregistry.com:5000
+# Email: dock_user@myprivateregistry.com
+
+

@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager
+  namespace: monitoring
+data:
+  config.yml: |-
+  
+    global:
+      resolve_timeout: 1m
+
+    templates:
+    - '/etc/alertmanager-templates/*.tmpl'
+    
+    route:
+      receiver: 'email-notifications' 
+      routes:
+      - match:
+          team: devops
+        receiver: 'email-notifications'
+        continue: true 
+      - match: 
+          team: dev
+        receiver: 'email-notifications'
+        continue: true
+
+    receivers:
+    - name: 'email-notifications'
+      email_configs:
+      - to: kunchalavikram1427@gmail.com
+        from: kunchalavikram1427@gmail.com
+        smarthost: smtp.gmail.com:587
+        auth_username: kunchalavikram1427@gmail.com
+        auth_identity: kunchalavikram1427@gmail.com
+        auth_password: xxxx
+        send_resolved: true

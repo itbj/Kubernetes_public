@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: clusterip-flask
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 5000
+    nodePort: 30001
+    protocol: TCP
+  selector:
+    app: flask-frontend
+
+---
+    
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: flask-deployment 
+  labels: 
+    app: flask-frontend
+spec: 
+  replicas: 3 
+  selector: 
+    matchLabels:
+      app: flask-frontend 
+  template: 
+    metadata:
+      labels: 
+        app: flask-frontend
+    spec:
+      containers:
+      - name: flask-frontend-container 
+        image: kunchalavikram/sampleflask:v2 
+        ports:
+        - containerPort: 5000
+
+
